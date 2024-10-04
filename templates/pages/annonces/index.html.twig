@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deposer une Annonce{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+  {% if not annonces.items is same as([]) %}
+
+    <h1>Deposer une Annonce</h1>
+    <a href="{{path('annonces_new')}}" class="btn btn-primary">Crée une Annonce</a>
+    {% for message in app.flashes('success')%}
+    <div class="alert alert-success mt-4">
+        {{message}}
+    </div>
+    {% endfor %}
+
+    <div class="count mt-4">
+     <h4>il y a {{ annonces.getTotalItemCount }} annonces au total</h4>
+  </div>
+<table class="table table-hover mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Numero</th>
+        <th scope="col">Title</th>
+        <th scope="col">Date de Creation</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      
+        {% for annonce in annonces %}
+        <div>
+            <tr class="table-primary">
+                <th scope="row">{{annonce.id}}</th>
+                <td>{{annonce.title}}</td>
+                <td>{{annonce.createdAt|date('d/m/Y')}}</td>
+                <td>
+                  <a href="{{ path('annonces_edit',{'id':annonce.id })}}" class="btn btn-warning">Modifier</a>
+                </td>
+                <td>
+                  <a href="{{ path('annonces_delete',{'id':annonce.id })}}" class="btn btn-danger">Supprimer</a>
+                </td>
+              </tr>
+        </div>
+            
+        {% endfor %}
+      
+    </tbody>
+  </table>
+  <div class="navigation d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(annonces) }}
+</div>
+{% else %}
+<h4>Il n'y a pas des annonces</h4>
+{% endif %}
+</div>
+
+
+{% endblock %}

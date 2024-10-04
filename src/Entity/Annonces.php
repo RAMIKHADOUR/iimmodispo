@@ -8,16 +8,19 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnnoncesRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 #[ORM\Entity(repositoryClass: AnnoncesRepository::class)]
+#[UniqueEntity('title')]
 class Annonces
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    #[Lessthan(50)]
+    #[LessThan(50)]
     private ?string $title = null;
 
     #[ORM\Column]

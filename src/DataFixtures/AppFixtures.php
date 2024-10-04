@@ -21,10 +21,10 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         for ($i=1; $i <= 50 ; $i++) { 
-            $annonce = new Annonces();
-            $annonce->setTitle($this->faker->word());
+            $annonces = new Annonces();
+            $annonces->setTitle($this->faker->word());
 
-            $manager->persist($annonce);
+            $manager->persist($annonces);
    
         }
        
